@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 
 class SplashScreenController extends GetxController {
-  final title = 'Room';
+  final title = 'Wallet';
 
   @override
   void onInit() {
