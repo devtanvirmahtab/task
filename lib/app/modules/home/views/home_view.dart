@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../core/widegts/line_chart_sample1.dart';
+import '../../../core/widgets/line_chart_sample1.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
