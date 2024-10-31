@@ -13,21 +13,48 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Chart Example"),
-        leading: Icon(Icons.ac_unit),
-        actions: [
-          HomeBannerSlider(),
-          Icon(Icons.search),
-          gapW(20),
-          Icon(Icons.notifications_rounded),
-          gapW(20),
-        ],
+      backgroundColor: AppColor.white,
+      body: SafeArea(
+        child: Column(
+          children: [
+            header(),
+            SizedBox(
+              width: Get.width,
+              height: 190,
+              child: HomeBannerSlider(),
+            ),
+            billPayment(),
+            activeLoans(),
+          ],
+        ),
       ),
-      body: Column(
+    );
+  }
+
+  Widget header(){
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          billPayment(),
-          activeLoans(),
+          Row(
+            children: [
+              Image.asset(
+                'assets/images/victory.png',
+                width: 25,
+                height: 25,
+              ),
+              gapW(10),
+              Text("Hey George!",style: text18Style(),),
+            ],
+          ),
+          Row(
+            children: [
+              Icon(Icons.search),
+              gapW(20),
+              Icon(Icons.notifications_rounded),
+            ],
+          )
         ],
       ),
     );
@@ -57,13 +84,15 @@ class HomeView extends GetView<HomeController> {
                 child: Column(
                   children: [
                     Container(
-                      padding:
-                          EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: AppColor.likeGrey,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: Icon(Icons.light_mode_sharp,size: 30,),
+                      child: Icon(
+                        Icons.light_mode_sharp,
+                        size: 30,
+                      ),
                     ),
                     gapH(8),
                     Text(
@@ -82,7 +111,6 @@ class HomeView extends GetView<HomeController> {
       ],
     );
   }
-
 
   Widget activeLoans() {
     return Column(
@@ -118,12 +146,15 @@ class HomeView extends GetView<HomeController> {
                   children: [
                     Container(
                       padding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         color: AppColor.likeGrey,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: Icon(Icons.home,size: 30,),
+                      child: Icon(
+                        Icons.home,
+                        size: 30,
+                      ),
                     ),
                     gapH(8),
                     Text(

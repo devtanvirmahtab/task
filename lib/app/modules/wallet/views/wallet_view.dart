@@ -5,6 +5,7 @@ import 'package:task/app/core/constants/app_constant.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/my_text_style.dart';
+import '../../../core/widgets/app_button.dart';
 import '../controllers/wallet_controller.dart';
 
 class WalletView extends GetView<WalletController> {
@@ -13,22 +14,34 @@ class WalletView extends GetView<WalletController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Wallet")),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-            child: Column(
-              children: [
-                linChart(),
-                gapH(30),
-                breakDown(),
-                gapH(10),
-              ],
-            ),
-          ),
-          Expanded(child: accountDetail()),
+      backgroundColor: AppColor.white,
+      appBar: AppBar(
+        backgroundColor: AppColor.white,
+        title: Text("Wallet"),
+        actions: [
+          // HomeBannerSlider(),
+          Icon(Icons.person),
+          gapW(20),
         ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+              child: Column(
+                children: [
+                  linChart(),
+                  gapH(30),
+                  breakDown(),
+                  gapH(10),
+                ],
+              ),
+            ),
+            accountDetail(),
+            gapH(100),
+          ],
+        ),
       ),
     );
   }
@@ -43,7 +56,16 @@ class WalletView extends GetView<WalletController> {
       final barData = walletData.spendSchedules;
 
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            "This month",
+            style: text14Style(),
+          ),
+          Text(
+            "Spend Chart",
+            style: text18Style(),
+          ),
           SizedBox(
             height: 200,
             child: BarChart(
@@ -96,13 +118,6 @@ class WalletView extends GetView<WalletController> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "Spending for ${walletData.period} in ${walletData.currency}",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
         ],
       );
     });
@@ -138,9 +153,15 @@ class WalletView extends GetView<WalletController> {
         Container(
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: AppColor.likeGrey,
-            shape: BoxShape.circle,
-          ),
+              color: AppColor.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColor.black.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 10,
+                )
+              ]),
           child: Text(
             '$value%',
             style: text18Style(color: AppColor.redLight),
@@ -162,17 +183,78 @@ class WalletView extends GetView<WalletController> {
         vertical: 20,
       ),
       decoration: BoxDecoration(
-        color: AppColor.grey,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+        color: AppColor.white,
+        borderRadius: BorderRadius.circular(
+          30,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.deepPurpleAccent.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 30,
+            offset: Offset(-100, -10)
+          )
+        ]
       ),
       child: Column(
         children: [
           Row(
-            children: [Text('data')],
-          )
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('account'),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(
+                  color: AppColor.black,
+                )),
+                child: Text('2555 4555 '),
+              ),
+            ],
+          ),
+          gapH(20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('password'),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(
+                  color: AppColor.black,
+                )),
+                padding: EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                child: Text('*******'),
+              ),
+            ],
+          ),
+          gapH(20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Exp date: 12/24'),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.blueAccent,
+                      Colors.deepPurpleAccent,
+                    ],
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 20 ,vertical: 8),
+                child: Text('Delete Card',style: text14Style(isWhiteColor: true),),
+              ),
+            ],
+          ),
+          gapH(20),
+          AppButton(
+            text: 'SKIP',
+            backgroundColor: AppColor.infoColor,
+            onPressed: () {},
+          ),
         ],
       ),
     );

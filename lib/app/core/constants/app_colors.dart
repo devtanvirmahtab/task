@@ -24,7 +24,7 @@ class AppColor {
   static const Color black = Color(0xFF000000);
   static const Color inputColor = Color(0x8052596E);
   static const Color grey = Color(0xff9D99A7);
-  static const Color likeGrey = Color(0xffe1e1e1);
+  static const Color likeGrey = Color(0xffF7F8FD);
   static const Color whiteBorder = Color(0xffE5E7EB);
   static const Color cardItemColor = Color(0xffECF6EC);
   static const Color dividerColor = Color(0xFFE7E7E7);

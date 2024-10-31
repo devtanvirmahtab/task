@@ -31,33 +31,35 @@ class MainNavView extends GetView<MainNavController> {
                   filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                   child: Container(
                     color: AppColor.black.withOpacity(0.1),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        bottomTabItem(
-                          icon: Icons.home_rounded,
-                          text: 'Home',
-                          onTap: () {
-                            controller.selectedPage.value = 0;
-                          }, isSelected: controller.selectedPage.value == 0,
-                        ),
-                        bottomTabItem(
-                          icon: Icons.search_rounded,
-                          text: 'Search',
-                          onTap: () {
-                            controller.selectedPage.value = 1;
-                          }, isSelected: controller.selectedPage.value == 1,
-                        ),
-                        bottomTabItem(
-                          icon: Icons.account_balance_wallet_outlined,
-                          text: 'Wallet',
-                          onTap: () {
-                            controller.selectedPage.value = 2;
-                          }, isSelected: controller.selectedPage.value == 2,
-                        ),
-                      ],
-                    ),
+                    child: Obx(() {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          bottomTabItem(
+                            icon: Icons.home_rounded,
+                            text: 'Home',
+                            onTap: () {
+                              controller.selectedPage.value = 0;
+                            }, isSelected: controller.selectedPage.value == 0,
+                          ),
+                          bottomTabItem(
+                            icon: Icons.search_rounded,
+                            text: 'Search',
+                            onTap: () {
+                              controller.selectedPage.value = 1;
+                            }, isSelected: controller.selectedPage.value == 1,
+                          ),
+                          bottomTabItem(
+                            icon: Icons.account_balance_wallet_outlined,
+                            text: 'Wallet',
+                            onTap: () {
+                              controller.selectedPage.value = 2;
+                            }, isSelected: controller.selectedPage.value == 2,
+                          ),
+                        ],
+                      );
+                    }),
                   ),
                 ),
               ),
@@ -97,7 +99,7 @@ class MainNavView extends GetView<MainNavController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color:isSelected? AppColor.infoColor : AppColor.black,),
+          Icon(icon, color: isSelected ? AppColor.infoColor : AppColor.black,),
           Text(text),
         ],
       ),

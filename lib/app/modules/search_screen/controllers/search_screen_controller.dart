@@ -12,6 +12,7 @@ import '../../../network/api_endpoints.dart';
 class SearchScreenController extends GetxController {
   final searchData = SearchData().obs;
   final productList = <Product>[].obs;
+  final isLoading = false.obs;
 
   final selectedItem = ''.obs;
 
@@ -39,8 +40,9 @@ class SearchScreenController extends GetxController {
   }
 
   Future<void> fetchData() async {
+    isLoading.value = true;
     var response = await ApiClient().getAPI(allFeedUrl, fetchData);
-
+    isLoading.value = false;
     if(response != null){
       productList.value = parseProducts(response.data);
       print(productList.length);
