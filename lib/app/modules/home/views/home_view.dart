@@ -20,7 +20,7 @@ class HomeView extends GetView<HomeController> {
             header(),
             SizedBox(
               width: Get.width,
-              height: 190,
+              height: 210,
               child: HomeBannerSlider(),
             ),
             billPayment(),

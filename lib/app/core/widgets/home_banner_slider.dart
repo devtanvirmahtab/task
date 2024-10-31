@@ -12,7 +12,12 @@ class HomeBannerSlider extends StatelessWidget {
   CarouselSliderController carouselController = CarouselSliderController();
   final ValueNotifier<int> _currentSelectedIndex = ValueNotifier(0);
 
-  final list = [1, 2, 3, 4];
+  final list = <String>[
+    'assets/images/card.png',
+    'assets/images/card.png',
+    'assets/images/card.png',
+    'assets/images/card.png',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +26,8 @@ class HomeBannerSlider extends StatelessWidget {
         carousel.CarouselSlider(
           carouselController: carouselController,
           options: carousel.CarouselOptions(
-            height: 150.0,
-            viewportFraction: 1,
+            height: 180,
+            viewportFraction: 0.8,
             autoPlay: true,
             onPageChanged: (index, _) {
               _currentSelectedIndex.value = index;
@@ -31,21 +36,29 @@ class HomeBannerSlider extends StatelessWidget {
           items: list.map((slider) {
             return Builder(
               builder: (BuildContext context) {
+                // return Container(
+                //     width: MediaQuery.of(context).size.width,
+                //     margin: const EdgeInsets.symmetric(horizontal: 20),
+                //     decoration: BoxDecoration(
+                //       color: AppColor.primaryColor.withOpacity(.1),
+                //       borderRadius: BorderRadius.circular(10),
+                //       // image: DecorationImage(
+                //       //     image: NetworkImage(slider.image?? '')
+                //       // )
+                //     ),
+                //     alignment: Alignment.center,
+                //     child: const Text(
+                //       'text ',
+                //       style: TextStyle(fontSize: 16.0),
+                //     ));
                 return Container(
+                      // margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Image.asset(
+                    slider,
+                    fit: BoxFit.fitHeight,
                     width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: AppColor.primaryColor.withOpacity(.1),
-                      borderRadius: BorderRadius.circular(10),
-                      // image: DecorationImage(
-                      //     image: NetworkImage(slider.image?? '')
-                      // )
-                    ),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      'text ',
-                      style: TextStyle(fontSize: 16.0),
-                    ));
+                  ),
+                );
               },
             );
           }).toList(),
@@ -64,16 +77,16 @@ class HomeBannerSlider extends StatelessWidget {
                       duration: const Duration(milliseconds: 500),
                       margin: const EdgeInsets.all(3),
                       height: 10,
-                      width: i == _currentSelectedIndex.value ? 30 : 10,
+                      width: 10,
                       decoration: BoxDecoration(
                         color: i == _currentSelectedIndex.value
                             ? AppColor.primaryColor
-                            : null,
+                            : Colors.black,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                             color: i == _currentSelectedIndex.value
                                 ? AppColor.primaryColor
-                                : Colors.black26),
+                                : Colors.black),
                       ),
                     )
                 ],
