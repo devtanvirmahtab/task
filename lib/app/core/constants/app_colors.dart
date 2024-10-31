@@ -41,6 +41,7 @@ class AppColor {
   static const Color mainBG = Color(0xFFEFF1F5);
   static const Color redLight = Color(0xFFFC5453);
   static const Color lightBlack = Color(0xff3E404D);
+  static const transparent = Color(0x00bd4efe);
 
   static const shimmerBaseColor = Color(0xFFD9D9D9);
   static const shimmerHighlightColor = Color(0xFFF6F6F6);

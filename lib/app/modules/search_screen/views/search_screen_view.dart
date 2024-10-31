@@ -5,6 +5,7 @@ import 'package:task/app/core/constants/my_text_style.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constant.dart';
+import '../../../core/widgets/cache_network_image_custom.dart';
 import '../controllers/search_screen_controller.dart';
 
 class SearchScreenView extends GetView<SearchScreenController> {
@@ -34,6 +35,7 @@ class SearchScreenView extends GetView<SearchScreenController> {
               ),
               gapH(20),
               recentProduct(),
+              gapH(100),
             ],
           ),
         ),
@@ -48,37 +50,65 @@ class SearchScreenView extends GetView<SearchScreenController> {
         color: AppColor.likeGrey,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return InkWell(
+      child: Obx(() {
+        return ListView.separated(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: controller.productList.length,
+          itemBuilder: (context, index) {
+            final productDATA = controller.productList[index];
+            return InkWell(
               onTap: () {},
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                 Expanded(
+                   child: Row(
+                     children: [
+                       ClipRRect(
+                         borderRadius: BorderRadius.circular(12),
+                         child: CachedNetworkImageCustom(
+                           imageUrl: productDATA.image ?? '',
+                           height: 50,
+                           width: 50,
+                           fit: BoxFit.cover,
+                         ),
+                       ),
+                       gapW(20),
+                       Expanded(
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Text(
+                               productDATA.title ?? '',
+                               style: text14Style(),
+                               maxLines: 2,
+                               overflow: TextOverflow.ellipsis,
+                             ),
+                             Text(
+                               'Rating: ${productDATA.rating?.rate ?? 0}(${productDATA.rating?.count ?? 0})',
+                               style: text14Style(),
+                             ),
+                           ],
+                         ),
+                       ),
+                       gapW(10),
+                     ],
+                   ),
+                 ),
                   Text(
-                    'jdjaf',
-                    style: text14Style(),
-                  ),
-                  gapW(10),
-                  Text(
-                    'jdjaf',
-                    style: text14Style(),
-                  ),
-                  gapW(10),
-                  Text(
-                    'jdjaf',
-                    style: text14Style(),
+                    '\$${productDATA.price}',
+                    style: text16Style(),
                   ),
                 ],
               ),
             );
-        },
-        separatorBuilder: (context, index) {
-          return gapW(10);
-        },
-      ),
+          },
+          separatorBuilder: (context, index) {
+            return gapH(10);
+          },
+        );
+      }),
     );
   }
 
@@ -181,7 +211,7 @@ class SearchScreenView extends GetView<SearchScreenController> {
   Widget chart() {
     return Obx(() {
       final periodData =
-          controller.searchData.value.data?[controller.selectedItem.value];
+      controller.searchData.value.data?[controller.selectedItem.value];
       if (periodData != null) {
         return SizedBox(
           height: 200,
@@ -211,8 +241,8 @@ class LineChartWidget extends StatelessWidget {
       LineChartData(
         borderData: FlBorderData(
             border: Border.all(
-          color: Colors.grey.shade300,
-        )),
+              color: Colors.grey.shade300,
+            )),
         gridData: FlGridData(
           show: true,
           drawVerticalLine: true,
@@ -220,22 +250,24 @@ class LineChartWidget extends StatelessWidget {
           verticalInterval: 1,
           // Ensures only one vertical grid line per x-axis label
           horizontalInterval: yAxisInterval,
-          getDrawingHorizontalLine: (value) => FlLine(
-            color: Colors.grey[300],
-            strokeWidth: 1,
-            dashArray: null, // Ensures horizontal lines are solid
-          ),
-          getDrawingVerticalLine: (value) => FlLine(
-            color: Colors.grey[300],
-            strokeWidth: 1,
-            dashArray: null, // Ensures vertical lines are solid
-          ),
+          getDrawingHorizontalLine: (value) =>
+              FlLine(
+                color: Colors.grey[300],
+                strokeWidth: 1,
+                dashArray: null, // Ensures horizontal lines are solid
+              ),
+          getDrawingVerticalLine: (value) =>
+              FlLine(
+                color: Colors.grey[300],
+                strokeWidth: 1,
+                dashArray: null, // Ensures vertical lines are solid
+              ),
         ),
         titlesData: FlTitlesData(
           topTitles: AxisTitles(
               sideTitles: SideTitles(
-            showTitles: false,
-          )),
+                showTitles: false,
+              )),
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
@@ -252,7 +284,7 @@ class LineChartWidget extends StatelessWidget {
                 return const Text('');
               },
               interval:
-                  1, // Ensures labels appear at each index position without overlapping
+              1, // Ensures labels appear at each index position without overlapping
             ),
           ),
           leftTitles: AxisTitles(
@@ -268,7 +300,7 @@ class LineChartWidget extends StatelessWidget {
                 .asMap()
                 .entries
                 .map((entry) =>
-                    FlSpot(entry.key.toDouble(), entry.value.toDouble()))
+                FlSpot(entry.key.toDouble(), entry.value.toDouble()))
                 .toList(),
             isCurved: true,
             barWidth: 5,

@@ -4,6 +4,7 @@ import 'package:task/app/core/constants/app_constant.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/my_text_style.dart';
+import '../../../core/widgets/home_banner_slider.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -16,6 +17,7 @@ class HomeView extends GetView<HomeController> {
         title: Text("Chart Example"),
         leading: Icon(Icons.ac_unit),
         actions: [
+          HomeBannerSlider(),
           Icon(Icons.search),
           gapW(20),
           Icon(Icons.notifications_rounded),
